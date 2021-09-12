@@ -7,9 +7,9 @@ using namespace std;
 typedef pair<int, int> PII;
 typedef long long ll;
 
-inline int read(void)
+inline ll read(void)
 {
-    register int x = 0;
+    register ll x = 0;
     register short sgn = 1;
     register char c = getchar();
     while (c < 48 || 57 < c)
