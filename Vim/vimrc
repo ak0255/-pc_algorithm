@@ -1,0 +1,473 @@
+"
+"    _        _    _                     __  __     __     ___                    
+"   / \      | | _(_)_ __   __ _        |  \/  |_   \ \   / (_)_ __ ___  _ __ ___ 
+"  / _ \     | |/ / | '_ \ / _` | _____ | |\/| | | | \ \ / /| | '_ ` _ \| '__/ __|
+" / ___ \    |   <| | | | | (_| | _____ | |  | | |_| |\ V / | | | | | | | | | (__ 
+"/_/   \_\___|_|\_\_|_| |_|\__, |       |_|  |_|\__, | \_/  |_|_| |_| |_|_|  \___|
+"       |_____|            |___/                |___/                             
+"
+set nocompatible
+let mapleader = " "
+set nu
+" 开启语法高亮功能
+syntax enable
+" 允许用指定语法高亮配色方案替换默认方案
+syntax on
+set cursorline cursorcolumn
+"set cursorline
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set laststatus=2
+set cmdheight=2
+" 上下保留的行数
+set scrolloff=10
+set smartindent
+set autoindent
+" 右下角显示命令
+set showcmd
+" 启用鼠标
+set mouse=a
+" Tab补全
+set wildmenu
+" 高亮搜索
+set hlsearch
+exec "nohlsearch"
+set incsearch
+" 兼容大小写
+set ignorecase
+" 智能大小写
+set smartcase
+" 智能行号
+set relativenumber
+" 禁止折行
+set nowrap
+
+
+" inoremap ( ()<ESC>i
+" inoremap { {}<ESC>i
+" inoremap {<CR> {<CR>}<ESC>O
+" inoremap [ []<ESC>i
+" inoremap " ""<ESC>i
+" inoremap ' ''<ESC>i
+
+
+
+noremap = nzz
+noremap - Nzz
+
+noremap ; :
+noremap <LEADER><CR> :nohlsearch<CR>
+noremap j k
+noremap k j
+
+noremap J 5k
+noremap K 5j
+noremap H 5h
+noremap L 5l
+
+" LEADER 设置为空
+map <LEADER> <nop>
+
+" 分屏后光标在窗口间上下左右
+map <LEADER>h <C-w>h
+map <LEADER>l <C-w>l
+map <LEADER>k <C-w>j
+map <LEADER>j <C-w>k
+
+" 准备读取单词
+map tx :r !figlet 
+
+map <LEADER>rc :e ~/.vim/vimrc<CR>
+
+" 向四个方向分屏并且将光标移动到相应的窗口
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sj :set nosplitbelow<CR>:split<CR>
+map sk :set splitbelow<CR>:split<CR>
+map s<LEADER> <C-w>t<C-w>H
+
+" 移动窗口大小
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize -5<CR>
+map <right> :vertical resize +5<CR>
+
+" 标签页
+map tu :tabe<CR>
+map tn :+tabnext<CR>
+map tp :-tabnext<CR>
+
+" 保持退出刷新配置
+map s <nop>
+map S :w<CR>
+map Q :q<CR>
+map r <nop>
+map R :source $MYVIMRC<CR>
+
+map <C-d> <C-n>
+
+" F3打开树形目录
+map <F3> :NERDTreeToggle<CR>
+
+" F5运行当前文件
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'java' 
+		exec "!javac %" 
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		exec "!time python3.8 %"
+	endif
+endfunc
+
+au BufRead,BufNewFile *.cpp set filetype=cpp
+au BufRead,BufNewFile *.sh set filetype=sh
+au BufRead,BufNewFile *.java set filetype=java
+au BufRead,BufNewFile *.sh set filetype=sh
+"文件标题
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call StTitle()"
+func StTitle()
+	if &filetype == 'sh' || &filetype == 'python'
+		call setline(1,"\##############################################################")
+		call append(line("."), "\#  > File Name        : ".expand("%"))
+		call append(line(".")+1, "\#  > Author           : Aking")
+		call append(line(".")+2, "\#  > Created Time     : ".strftime("%c"))
+		call append(line(".")+3, "\##############################################################")
+		call append(line(".")+4, "")
+	else
+		call setline(1,"/*************************************************************")
+		call append(line("."), " *  > File Name        : ".expand("%"))
+		call append(line(".")+1, " *  > Author           : Aking")
+		call append(line(".")+2, " *  > Created Time     : ".strftime("%c"))
+		call append(line(".")+3, "**************************************************************/")
+		call append(line(".")+4, "")
+	endif
+	if &filetype == 'sh'
+		call append(line(".")+5, "\#!/bin/bash")
+		call append(line(".")+6, "")
+	endif
+	if &filetype == 'cpp'
+		call append(line(".")+5, "#include<bits/stdc++.h>")
+		call append(line(".")+6, "using namespace std;")
+		call append(line(".")+7, "")
+		call append(line(".")+8, "int main()")
+		call append(line(".")+9, "{")
+		call append(line(".")+10, "    ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);")
+		call append(line(".")+11, "    ")
+		call append(line(".")+12, "    return 0;")
+		call append(line(".")+13, "}")
+	endif
+endfunc
+
+" 底部状态高亮
+" 配色主题
+" 树形目录
+" 自动匹配插入删除
+" ----------------------------------------------------------插件
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'connorholyday/vim-snazzy'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'jiangmiao/auto-pairs'
+
+" Auto Complete
+" Plug 'Valloric/YouCompleteMe'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" 语法检查
+" Plug 'https://github.com/scrooloose/syntastic.git'
+Plug 'w0rp/ale'
+
+" 选中区域块内容
+Plug 'gcmt/wildfire.vim'
+
+" 区域添加更换”“、‘’、{}、()
+Plug 'tpope/vim-surround'
+
+
+" 多光标
+Plug 'mg979/vim-visual-multi'
+
+"
+" Bookmarks
+" Plug 'kshenoy/vim-signature'
+
+call plug#end()
+" ----------------------------------------------------------插件
+
+
+" ----------------------------------------------------------主题
+" vim透明
+" let g:SnazzyTransparent = 1
+" 插件vim-snazzy的配色方案
+" colorscheme snazzy
+
+
+" 设置主题
+set t_Co=256
+set background=dark
+
+let g:solarized_termcolors=16
+" 两种流行风格的主题
+colorscheme molokai
+" colorscheme solarized
+" set background=light
+
+" ----------------------------------------------------------主题
+
+" 设置目录宽度
+" let g:NERDTreeWinSize = 20
+" let g:tagbar_width=20
+
+" ----------------------------------------------------------命令行状态栏
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+" ----------------------------------------------------------命令行状态栏
+
+
+"----------------------------------------------------------------------ale
+"始终开启标志列
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+"自定义error和warning图标
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+"在vim自带的状态栏中整合ale
+"lt g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp <Plug>(ale_previous_wrap)
+nmap sn <Plug>(ale_next_wrap)
+"<Leader>s触发/关闭语法检查
+nmap <Leader>s :ALEToggle<CR>
+"<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
+
+"文件内容发生变化时不进行检查
+let g:ale_lint_on_text_changed = 'never'
+"打开文件时不进行检查
+let g:ale_lint_on_enter = 0
+
+"使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
+let g:ale_linters = {
+\   'c++': ['clang'],
+\   'c': ['clang'],
+\   'python': ['pylint'],
+\}
+
+set tags=/home/aking/tags
+" set tags=./tags,tags;$HOME
+"----------------------------------------------------------------------ale
+
+
+
+
+
+
+
+
+
+
+
+"------------------------------------------------------------------------coc-nvim
+" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+" set nobackup
+" set nowritebackup
+
+" Give more space for displaying messages.
+" set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=100
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"------------------------------------------------------------------------coc-nvim
+
+
+
+
+
+
+
+
+
+
+
+
+
