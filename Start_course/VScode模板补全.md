@@ -1263,7 +1263,7 @@
 			"int dindex;//dindex为时间戳",
 			"int h[N], e[N * 2], ne[N * 2], idx;//邻接表存图",
 			"int cut[N];",
-			"int n, m;",
+			"int n, m, stop, bcnt;",
 			"",
 			"inline void add(int a, int b) {",
 			"\te[idx] = b, ne[idx] = h[a], h[a] = idx++;",
