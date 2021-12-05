@@ -2,17 +2,25 @@
 
 | 模板                       | 快捷键            |
 | -------------------------- | ----------------- |
+| 标准库万能头               | `#incl`           |
+| 多项输出调试               | `Println`         |
+| .cpp板子                   | `default`         |
+| ios读入读出                | `ios`             |
 | 常用const                  | `const`           |
-| typdef                     | `typedef`         |
+| 常用typdef                 | `typedef`         |
+| 泛型补全                   | `temp`            |
+| 常用template               | `temp`            |
+| 快读快写                   | `ll read`         |
 | 常用头文件                 | `#incl`           |
-| 常用using                  | `us`              |
 | 常用main                   | `main`            |
+| 偏移量判断出界             | `nx`              |
 | memset初始化各种数组       | `memset`          |
 | 快速幂                     | `ksm`             |
 | 拓展欧几里得算法           | `exgcd`           |
 | 欧拉筛质数                 | `ola`             |
 | 字典树插入字符串求出现次数 | `insert`          |
 | 并查集                     | `find`            |
+| 匈牙利算法                 | `find`            |
 | 加边函数不带权             | `add`             |
 | 加边函数带权               | `add`             |
 | 优先队列dijkstra           | `dijkstra`        |
@@ -22,26 +30,32 @@
 | 线段树                     | `build`           |
 | AC自动机简单版             | `ac`              |
 | AC自动机加强版             | `ac`              |
-| manacher                   | `manacher`        |
+| manacher求最长回文串长度   | `manacher`        |
+| manacher求最长回文子串     | `manacher`        |
 | Lucas定理求组合数          | `lucas`           |
 | min25筛                    | `min25`           |
 | 杜教筛                     | `dujiao`          |
-| 递归排序                   | `mer`             |
+| 递归排序                   | `merge`           |
 | topsort拓扑排序            | `topsort`         |
 | 倍增lca求两点距离          | `lca`             |
 | 倍增lca求最近公共祖先      | `lca`             |
 | tarjan算法求割点           | `tarjan`          |
+| tarjan算法求割边           | `tarjan`          |
 | tarjan强连通分量           | `tarjan`          |
+| 模拟退火                   | `simulate`        |
 | add - 高精度加法           | `vector<int> add` |
 | sub - 高精度减法           | `vector<int> sub` |
 | mul - 高精度乘低精度       | `vector<int> mul` |
 | div - 高精度除以低精度     | `vector<int> div` |
-|                            |                   |
-|                            |                   |
-|                            |                   |
-|                            |                   |
-|                            |                   |
-|                            |                   |
+| 上左下右四方向偏移量       | `int dx`          |
+| 八方向偏移量               | `int dx`          |
+| 十二方向偏移量             | `int dx`          |
+| 佛洛依德求最小环           | `floyd`           |
+| kmp求最字符出现位置        | `kmp`             |
+| inv线性求逆元              | `inv`             |
+| splay树                    | `splay`           |
+
+
 
 ```cpp
 {
@@ -58,6 +72,79 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	// Ctrl + k + j一键折叠所有
+	// Ctrl + k + 0一键展开所有
+	//标准库万能头
+	"标准库万能头": {
+		"prefix": "#incl",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"using namespace std;",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//多项输出调试
+	"多项输出调试": {
+		"prefix": "Println",
+		"body": [
+			"template<typename ...U>void Println(U... u) {",
+			"\tint last_index = sizeof...(U) - 1, index = 0;",
+			"\tauto printer = [last_index, &index]<typename Arg>(Arg arg){",
+			"\t\tif (last_index == index++) cout << arg << endl;",
+			"\t\telse cout << arg << \", \";};",
+			"(printer(u), ...);}",
+		],
+		"description": "Log output to console"
+	},
+	// 模板
+	"板子": {
+		"prefix": "default",
+		"body": [
+			"#include <iostream>",
+			"#include <cstring>",
+			"#include <algorithm>",
+			"// #include <bits/stdc++.h>",
+			"using namespace std;",
+			"#define inf 0x7fffffff",
+			"",
+			"template<typename T>void Max(T &a, T b){if (a < b) a = b;}",
+			"template<typename T>void Min(T &a, T b){if (a > b) a = b;}",
+			"template<typename T>T Abs(T a){if (a < 0) a = -1 * a;return a;}",
+			"template<typename T>T Gcd(T a, T b){return b ? Gcd(b, a % b) : a;}",
+			"template<typename T>void Swap(T &a, T &b){T temp = a;a = b;b = temp;}",
+			"template<typename ...U>void Println(U... u) {",
+			"\tint last_index = sizeof...(U) - 1, index = 0;",
+			"\tauto printer = [last_index, &index]<typename Arg>(Arg arg){",
+			"\t\tif (last_index == index++) cout << arg << endl;",
+			"\t\telse cout << arg << \", \";};",
+			"\t(printer(u), ...);}",
+			"",
+			"typedef long long ll;",
+			"typedef pair<int, int> PII;",
+			"typedef pair<int, PII> PIII;",
+			"const int N = 1e5 + 10, M = 2e5 + 10, mod = 1331;",
+			"",
+			"",
+			"",
+			"signed main()",
+			"{",
+			"\tios::sync_with_stdio(false);cin.tie(0);cout.tie(0);",
+			"\tfreopen(\"in.in\", \"r\", stdin);freopen(\"out.out\", \"w\", stdout);",
+			"\t$0",
+			"\treturn 0;",
+			"}",
+		],
+		"description": "Log output to console"
+	},
+	"ios读入读出": {
+		"prefix": "ios",
+		"body": [
+			"ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);",
+			"$0",
+		],
+		"description": "Log output to console"
+	},
 	//常用const
 	"const": {
 		"prefix": "const",
@@ -72,7 +159,28 @@
 		"body": [
 			"typedef long long ll;",
 			"typedef pair<int, int> PII;",
-			"typedef pair<int, PII> PIII;"
+			"typedef pair<int, PII> PIII;",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//泛型补全
+	"泛型补全": {
+		"prefix": "temp",
+		"body": [
+			"template<typename T>",
+		],
+		"description": "Log output to console"
+	},
+	//常用template
+	"常用template": {
+		"prefix": "temp",
+		"body": [
+			"template<typename T>void Max(T &a, T b){if (a < b) a = b;}",
+			"template<typename T>void Min(T &a, T b){if (a > b) a = b;}",
+			"template<typename T>T Gcd(T a, T b){return b ? Gcd(b, a % b) : a;}",
+			"template<typename T>void Swap(T &a, T &b){T temp = a;a = b;b = temp;}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -82,15 +190,10 @@
 		"body": [
 			"#include <iostream>",
 			"#include <cstring>",
-			"#include <algorithm>"
-		],
-		"description": "Log output to console"
-	},
-	//常用using
-	"#using namespace std": {
-		"prefix": "us",
-		"body": [
-			"using namespace std;"
+			"#include <algorithm>",
+			"using namespace std;",
+			"#define inf 0x7f7f7f7f",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -98,13 +201,22 @@
 	"main主函数": {
 		"prefix": "main",
 		"body": [
-			"int main()",
+			"signed main()",
 			"{",
-			"\tfreopen(\"in.in\", \"r\", stdin);",
-			"\tfreopen(\"out.out\", \"w\", stdout);",
-			"",
+			"\tfreopen(\"in.in\", \"r\", stdin);freopen(\"out.out\", \"w\", stdout);",
+			"\t$0",
 			"\treturn 0;",
 			"}"
+		],
+		"description": "Log output to console"
+	},
+	//偏移量判断出界
+	"偏移量判断出界": {
+		"prefix": "nx",
+		"body": [
+			"nx = x + dx[i], ny = y + dy[i];",
+			"if (nx <= 0 || nx > n || ny <= 0 || ny > m) continue;",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -123,7 +235,8 @@
 			"\t\tb >>= 1;",
 			"\t}",
 			"\treturn res;",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -133,7 +246,8 @@
 		"body": [
 			"int lowbit(int x) {",
 			"\treturn x & -x;",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -157,6 +271,7 @@
 			"\tfor (int i = x;i > 0; i -= lowbit(i)) res += tr[i];",
 			"\treturn res;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -168,6 +283,7 @@
 			"{",
 			"\tint l, r;",
 			"\t// TODO: 需要维护的信息和懒标记",
+			"\t$0",
 			"}tr[N * 4];",
 			"",
 			"void pushup(int u)",
@@ -236,7 +352,7 @@
 			"namespace AC{",
 			"\tint tr[N][26], fail[N], e[N], tot;",
 			"",
-			"\tvoid insert(char *s){",
+			"\tvoid insert(char *s){// 字典树插入",
 			"\t\tint u = 0;",
 			"\t\tfor(int i = 1;s[i];i++){",
 			"\t\t\tif(!tr[u][s[i] - 'a']) tr[u][s[i] - 'a'] = ++tot;",
@@ -246,7 +362,7 @@
 			"\t}",
 			"",
 			"\tqueue<int> q;",
-			"\tvoid build(){",
+			"\tvoid build(){// 计算fail指针",
 			"\t\tfor(int i = 0;i < 26;i++){",
 			"\t\t\tif(tr[0][i]) q.push(tr[0][i]);",
 			"\t\t}",
@@ -263,7 +379,7 @@
 			"\t\t}",
 			"\t}",
 			"",
-			"\tint query(char *t){",
+			"\tint query(char *t){// 询问几个单词出现过、当且仅当编号不同",
 			"\t\tint u = 0, res = 0;",
 			"\t\tfor(int i = 1;t[i];i++){",
 			"\t\t\tu = tr[u][t[i] - 'a'];",
@@ -274,7 +390,8 @@
 			"\t\t}",
 			"\t\treturn res;",
 			"\t}",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -284,8 +401,8 @@
 		"body": [
 			"namespace AC{",
 			"\tint tr[M][26], fail[M], e[M], tot;//字典树 指针 标号",
-			"\tint cnt[N], val[M];",
-			"\tvoid init(){",
+			"\tint cnt[N], val[M];// cnt表示第i个字符串出现的次数",
+			"\tvoid init(){// 初始化",
 			"\t\tmemset(tr, 0, sizeof tr);",
 			"\t\tmemset(fail, 0, sizeof fail);",
 			"\t\tmemset(e, 0, sizeof e);",
@@ -293,7 +410,7 @@
 			"\t\tmemset(val, 0, sizeof val);",
 			"\t\ttot = 0;",
 			"\t}",
-			"\tvoid insert(char *s, int id){",
+			"\tvoid insert(char *s, int id){// 字典树插入",
 			"\t\tint u = 0;",
 			"\t\tfor(int i = 1;s[i];i++){",
 			"\t\t\tif(!tr[u][s[i] - 'a']) tr[u][s[i] - 'a'] = ++tot;",
@@ -302,7 +419,7 @@
 			"\t\te[u] = id;",
 			"\t}",
 			"\tqueue<int> q;",
-			"\tvoid build(){",
+			"\tvoid build(){// 计算fail指针",
 			"\t\tfor(int i = 0;i < 26;i++)",
 			"\t\t\tif(tr[0][i]) q.push(tr[0][i]);",
 			"\t\twhile(q.size()){",
@@ -317,7 +434,7 @@
 			"\t\t}",
 			"\t}",
 			"",
-			"\tint query(char *t){",
+			"\tint query(char *t){// 询问每个单词出现次数、返回最大次数",
 			"\t\tint u = 0, res = 0;",
 			"\t\tfor(int i = 1;t[i];i++){",
 			"\t\t\tu = tr[u][t[i] - 'a'];",
@@ -326,7 +443,7 @@
 			"\t\tfor(int i = 1;i <= tot;i++){",
 			"\t\t\tif(e[i]){",
 			"\t\t\t\tres = max(res, val[i]);",
-			"\t\t\t\tcnt[e[i]] = val[i];",
+			"\t\t\t\tcnt[e[i]] = val[i];// 通过标号得到次数",
 			"\t\t\t}",
 			"\t\t}",
 			"\t\treturn res;",
@@ -336,32 +453,31 @@
 		"description": "Log output to console"
 	},
 	//字符串马拉车
-	"manacher马拉车": {
+	"manacher求最长回文串长度": {
 		"prefix": "manacher",
 		"body": [
-			"int str[N], nstr[2 * N], len[2 * N];",
+			"string str, nstr;",
+			"int lens[2 * N];",
 			"",
-			"int init(int len)//返回字符串长度、len为原长度、str为字符串、nstr为新字符串",
+			"void init()//返回字符串长度、str为字符串、nstr为新字符串",
 			"{",
 			"\tint j = 2;",
-			"\tnstr[0] = '@', nstr[1] = '#';",
-			"\tfor (int i = 0; i < len; i++)",
+			"\tnstr += '@', nstr += '#';",
+			"\tfor (int i = 0; i < str.length(); i++)",
 			"\t{",
-			"\t\tnstr[j++] = str[i];",
-			"\t\tnstr[j++] = '#';",
+			"\t\tnstr += str[i];",
+			"\t\tnstr += '#';",
 			"\t}",
-			"\tnstr[j] = '*';",
-			"\treturn j;",
+			"\tnstr += '*';",
 			"}",
 			"",
-			"int man(int len)//返回最长字符串、len为字符串长度",
+			"int man()//返回最长字符串、len为字符串长度",
 			"{",
 			"\tint mx = 0, id = 1, max_len = 0;",
-			"\tfor (int i = 1; i < len; i++)",
+			"\tfor (int i = 1; i < nstr.length(); i++)",
 			"\t{",
 			"\t\tlens[i] = i < mx ? min(mx - i, lens[2 * id - i]) : 1;",
-			"\t\twhile (nstr[i + lens[i]] == nstr[i - lens[i]])",
-			"\t\t\tlens[i]++;",
+			"\t\twhile (nstr[i + lens[i]] == nstr[i - lens[i]]) lens[i]++;",
 			"\t\tif (lens[i] + i > mx)",
 			"\t\t{",
 			"\t\t\tmx = lens[i] + i;",
@@ -370,7 +486,64 @@
 			"\t\tmax_len = max(max_len, lens[i]);",
 			"\t}",
 			"\treturn max_len - 1;",
-			"}"
+			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	"manacher求最长回文子串": {
+		"prefix": "manacher",
+		"body": [
+			"string str, nstr;",
+			"int lens[2 * N];",
+			"",
+			"void init()//str为字符串、nstr为新字符串",
+			"{",
+			"\tint j = 2;",
+			"\tnstr += '@', nstr += '#';",
+			"\tfor (int i = 0; i < str.length(); i++)",
+			"\t{",
+			"\t\tnstr += str[i];",
+			"\t\tnstr += '#';",
+			"\t}",
+			"\tnstr += '*';",
+			"}",
+			"",
+			"string man() {//返回最长字符子串、len为字符串长度",
+			"\tint mx = 0, id = 1, max_len = 0, startx = 2, lenx = 1;",
+			"\tfor (int i = 1; i < nstr.length(); i++)",
+			"\t{",
+			"\t\tlens[i] = i < mx ? min(mx - i, lens[2 * id - i]) : 1;",
+			"\t\twhile (nstr[i + lens[i]] == nstr[i - lens[i]]) lens[i]++;",
+			"\t\tif(lens[i] > max_len){",
+			"\t\t\t\tstartx = i;",
+			"\t\t\t\tlenx = lens[i];",
+			"\t\t\t}",
+			"\t\tif (lens[i] + i > mx)",
+			"\t\t{",
+			"\t\t\tmx = lens[i] + i;",
+			"\t\t\tid = i;",
+			"\t\t}",
+			"\t\tmax_len = max(max_len, lens[i]);",
+			"\t}",
+			"\tnstr = nstr.substr(startx, lenx);",
+			"\tif((max_len - 1) & 1){",
+			"\t\tstring str = nstr.substr(1);",
+			"\t\treverse(str.begin(), str.end());",
+			"\t\tnstr = str + nstr;",
+			"\t}else{",
+			"\t\treverse(nstr.begin(), nstr.end());",
+			"\t\tstring str = nstr;",
+			"\t\treverse(nstr.begin(), nstr.end());",
+			"\t\tnstr = str + nstr;",
+			"\t}",
+			"\tstring cc = \"\";",
+			"\tfor(int i = 0;i < nstr.length();i++){",
+			"\t\tif(nstr[i] != '#') cc += nstr[i];",
+			"\t}",
+			"\treturn cc;",
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -378,37 +551,40 @@
 	"Lucas定理": {
 		"prefix": "lucas",
 		"body": [
-			"int qmi(int a, int k, int p)  // 快速幂模板",
+			"ll quick_pow(ll a, ll n, ll q)",
 			"{",
-			"\tint res = 1 % p;",
-			"\twhile (k)",
+			"\tll ret = 1;",
+			"\ta %= q;",
+			"\twhile (n)",
 			"\t{",
-			"\t\tif (k & 1) res = (ll)res * a % p;",
-			"\t\ta = (ll)a * a % p;",
-			"\t\tk >>= 1;",
+			"\t\tif (n & 1)",
+			"\t\t\tret = ret * a % q;",
+			"\t\ta = a * a % q;",
+			"\t\tn >>= 1;",
 			"\t}",
-			"\treturn res;",
+			"\treturn ret;",
 			"}",
-			"",
-			"int C(int a, int b, int p)  // 通过定理求组合数C(a, b)",
+			"ll getc(ll n, ll m, ll q)",
 			"{",
-			"\tif (a < b) return 0;",
-			"",
-			"\tll x = 1, y = 1;  // x是分子，y是分母",
-			"\tfor (int i = a, j = 1; j <= b; i --, j ++ )",
+			"\tif (n < m)",
+			"\t\treturn 0;",
+			"\tif (m > n - m)",
+			"\t\tm = n - m;",
+			"\tll s1 = 1, s2 = 1;",
+			"\tfor (int i = 0; i < m; ++i)",
 			"\t{",
-			"\t\tx = (ll)x * i % p;",
-			"\t\ty = (ll) y * j % p;",
+			"\t\ts1 = s1 * (n - i) % q;",
+			"\t\ts2 = s2 * (i + 1) % q;",
 			"\t}",
-			"",
-			"\treturn x * (ll)qmi(y, p - 2, p) % p;",
+			"\treturn s1 * quick_pow(s2, q - 2, q) % q;",
 			"}",
-			"",
-			"int lucas(ll a, ll b, int p)",
+			"ll lucas(ll n, ll m, ll q)",
 			"{",
-			"\tif (a < p && b < p) return C(a, b, p);",
-			"\treturn (ll)C(a % p, b % p, p) * lucas(a / p, b / p, p) % p;",
+			"\tif (!m)",
+			"\t\treturn 1;",
+			"\treturn getc(n % q, m % q, q) * lucas(n / q, m / q, q) % q;",
 			"}",
+			"$0",
 		],
 		"description": "Log output to console"
 	},
@@ -445,7 +621,8 @@
 			"\t\t}",
 			"\t}",
 			"\treturn S[0];",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -551,13 +728,14 @@
 			"\t\tint x = read();",
 			"\t\t//TODO:选择要输出的",
 			"\t}",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
 	//递归排序
 	"递归排序": {
-		"prefix": "mer",
+		"prefix": "merge",
 		"body": [
 			"void merge_sort(int q[], int l, int r)  // 归并排序",
 			"{",
@@ -577,6 +755,7 @@
 			"",
 			"\tfor (i = l, j = 0; i <= r; i ++, j ++ ) q[i] = tmp[j];",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -608,6 +787,7 @@
 			"\t// 如果所有点都入队了，说明存在拓扑序列；否则不存在拓扑序列。",
 			"\treturn tt == n - 1;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -668,6 +848,7 @@
 			"",
 			"\treturn res;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -720,6 +901,7 @@
 			"",
 			"\treturn fa[x][0];",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -732,6 +914,7 @@
 			"{",
 			"\te[idx] = b, ne[idx] = h[a], h[a] = idx ++ ;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -744,6 +927,7 @@
 			"{",
 			"\te[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx ++ ;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -751,7 +935,8 @@
 	"初始化h数组": {
 		"prefix": "memset",
 		"body": [
-			"memset(h, -1, sizeof h);"
+			"memset(h, -1, sizeof h);",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -759,7 +944,8 @@
 	"初始化st数组": {
 		"prefix": "memset",
 		"body": [
-			"memset(st, 0, sizeof st);"
+			"memset(st, 0, sizeof st);",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -767,7 +953,8 @@
 	"初始化dis数组": {
 		"prefix": "memset",
 		"body": [
-			"memset(dis, 127, sizeof dis);"
+			"memset(dis, 127, sizeof dis);",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -786,6 +973,7 @@
 			"\ty -= (a / b) * x;",
 			"\treturn d;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -798,6 +986,32 @@
 			"\tif (fa[x] != x) fa[x] = find(fa[x]);",
 			"\treturn fa[x];",
 			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//匈牙利算法
+	"匈牙利算法": {
+		"prefix": "find",
+		"body": [
+			"bool find(int x)",
+			"{",
+			"\tfor (int i = h[x]; i != -1; i = ne[i])",
+			"\t{",
+			"\t\tint j = e[i];",
+			"\t\tif (!st[j])",
+			"\t\t{",
+			"\t\t\tst[j] = true;",
+			"\t\t\tif (match[j] == 0 || find(match[j]))// 如果j还没有配对，或者j可以跟其他点配对",
+			"\t\t\t{",
+			"\t\t\t\tmatch[j] = x;// 那么j就跟我配对",
+			"\t\t\t\treturn true;",
+			"\t\t\t}",
+			"\t\t}",
+			"\t}",
+			"\treturn false;",
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -830,6 +1044,7 @@
 			"\t}",
 			"\treturn cnt[p];",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -865,6 +1080,7 @@
 			"\t\t}",
 			"\t}",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -876,6 +1092,8 @@
 			"{",
 			"\tif (A.size() < B.size()) return add(B, A);",
 			"",
+			"\treverse(A.begin(), A.end());",
+			"\treverse(B.begin(), B.end());",
 			"\tvector<int> C;",
 			"\tint t = 0;",
 			"\tfor (int i = 0; i < A.size(); i ++ )",
@@ -887,8 +1105,10 @@
 			"\t}",
 			"",
 			"\tif (t) C.push_back(t);",
+			"\treverse(C.begin(), C.end());",
 			"\treturn C;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -899,6 +1119,8 @@
 			"vector<int> sub(vector<int> &A, vector<int> &B)  // C = A - B, 满足A >= B, A >= 0, B >= 0",
 			"{",
 			"\tvector<int> C;",
+			"\treverse(A.begin(), A.end());",
+			"\treverse(B.begin(), B.end());",
 			"\tfor (int i = 0, t = 0; i < A.size(); i ++ )",
 			"\t{",
 			"\t\tt = A[i] - t;",
@@ -909,8 +1131,10 @@
 			"\t}",
 			"",
 			"\twhile (C.size() > 1 && C.back() == 0) C.pop_back();",
+			"\treverse(C.begin(), C.end());",
 			"\treturn C;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -921,6 +1145,7 @@
 			"vector<int> mul(vector<int> &A, int b)  // C = A * b, A >= 0, b >= 0",
 			"{",
 			"\tvector<int> C;",
+			"\treverse(A.begin(), A.end());",
 			"",
 			"\tint t = 0;",
 			"\tfor (int i = 0; i < A.size() || t; i ++ )",
@@ -932,8 +1157,10 @@
 			"",
 			"\twhile (C.size() > 1 && C.back() == 0) C.pop_back();",
 			"",
+			"\treverse(C.begin(), C.end());",
 			"\treturn C;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -943,6 +1170,7 @@
 		"body": [
 			"vector<int> div(vector<int> &A, int b, int &r)  // A / b = C ... r, A >= 0, b > 0",
 			"{",
+			"\treverse(A.begin(), A.end());",
 			"\tvector<int> C;",
 			"\tr = 0;",
 			"\tfor (int i = A.size() - 1; i >= 0; i -- )",
@@ -953,8 +1181,10 @@
 			"\t}",
 			"\treverse(C.begin(), C.end());",
 			"\twhile (C.size() > 1 && C.back() == 0) C.pop_back();",
+			"\treverse(C.begin(), C.end());",
 			"\treturn C;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -969,7 +1199,7 @@
 			"\t{",
 			"\t\tif (st[i] == 0)",
 			"\t\t\tprimes[cnt++] = i;                   //将质数存到primes中",
-			"\t\tfor (int j = 0; primes[j] <= n / i; j++) //要确保质数的第i倍是小于等于n的。",
+			"\t\tfor (int j = 0; primes[j] * i <= n; j++) //要确保质数的第i倍是小于等于n的。",
 			"\t\t{",
 			"\t\t\tst[primes[j] * i] = 1;",
 			"\t\t\tif (i % primes[j] == 0)",
@@ -977,6 +1207,7 @@
 			"\t\t}",
 			"\t}",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -991,10 +1222,10 @@
 			"// 由抽屉原理一定有两个点相同，所以存在环。",
 			"\tint hh = 0, tt = 0;",
 			"",
-			"\tfor (int i = 1; i <= n; i ++ ) q[tt ++ ] = i, st[i] = true;",
+			"\tfor (int i = 1; i <= n; i ++ ) q[tt ++ ] = i, st[i] = true, dist[i] = cnt[i] = 0;",
 			"",
 			"\twhile (hh != tt)",
-			"\t\t\t{",
+			"\t{",
 			"\t\tint t = q[hh ++ ];",
 			"\t\tif (hh == N) hh = 0;",
 			"\t\tst[t] = false;",
@@ -1004,7 +1235,7 @@
 			"\t\t\tint j = e[i];",
 			"\t\t\tif (dist[j] > dist[t] + w[i])",
 			"\t\t\t{",
-			"\t\t\tdist[j] = dist[t]  + w[i];",
+			"\t\t\t\tdist[j] = dist[t]  + w[i];",
 			"\t\t\t\tcnt[j] = cnt[t] + 1;",
 			"\t\t\t\tif (cnt[j] >= n) return true;",
 			"\t\t\t\tif (!st[j])",
@@ -1019,6 +1250,7 @@
 			"",
 			"\treturn false;",
 			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -1033,11 +1265,11 @@
 			"int cut[N];",
 			"int n, m;",
 			"",
-			"inline void add (int a, int b) {",
+			"inline void add(int a, int b) {",
 			"\te[idx] = b, ne[idx] = h[a], h[a] = idx++;",
 			"}",
 			"",
-			"void tarjan (int u, int fa) {",
+			"void tarjan(int u, int fa) {",
 			"\tdfn[u] = low[u] = ++dindex;//初始都为时间戳",
 			"\tint child=0;",
 			"",
@@ -1054,18 +1286,18 @@
 			"\t\t}",
 			"\t\tlow[u] = min (low[u], dfn[j]);",
 			"\t}",
-			"\tif (child >= 2 && u== fa)",
+			"\tif (child >= 2 && u == fa)",
 			"\t\tcut[u] = 1;",
 			"}",
 			"",
-			"void solve () {",
+			"void solve() {",
 			"\tmemset (h, -1, sizeof h);",
 			"\tmemset (dfn, 0, sizeof dfn);",
 			"\tstop = bcnt = dindex = 0;",
 			"",
-			"\tn = read(), m = read();",
+			"\tcin >> n >> m;",
 			"\tfor (int i = 1;i <= m;i ++) {",
-			"\t\tint a =read(), b = read();",
+			"\t\tint a, b;cin >> a >> b;",
 			"\t\tadd(a, b);",
 			"\t\tadd(b, a);",
 			"\t}",
@@ -1074,6 +1306,61 @@
 			"\t\tif(!dfn[i]) tarjan(i, i);",
 			"\t}",
 			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//tarjan算法求割边
+	"tarjan算法求割边": {
+		"prefix": "tarjan",
+		"body": [
+			"int low[N], dfn[N], father[N];//dfn(u)为节点u搜索的次序编号(时间戳),low(u)为u或u的子树能够追溯到的最早的栈中节点的次序号",
+			"int dfs_clock, cnt_bridge;//dfs_clock时间戳、cnt_bridge割边数量",
+			"bool isbridge[N];//是否是割边",
+			"int h[N], e[N * 2], ne[N * 2], idx;//邻接表存图",
+			"vector<PII> res;// 割边集合",
+			"int n, m;",
+			"",
+			"inline void add(int a, int b) {",
+			"\te[idx] = b, ne[idx] = h[a], h[a] = idx++;",
+			"}",
+			"",
+			"void tarjan(int u, int fa) {",
+			"\tfather[u] = fa;//父亲节点",
+			"\tlow[u] = dfn[u] = ++dfs_clock;",
+			"\tfor (int i = h[u];~i;i = ne[i]) {",
+			"\t\tint v = e[i];",
+			"\t\tif (!dfn[v]) {",
+			"\t\ttarjan(v, u);",
+			"\t\tlow[u] = min(low[u], low[v]);",
+			"\t\tif (low[v] > dfn[u]) {",
+			"\t\t\tisbridge[v] = true;// 如果isbridge为真表示father[v] -> v为一条割边",
+			"\t\t\tres.push_back({father[v], v});",
+			"\t\t\t++cnt_bridge;",
+			"\t\t}",
+			"\t\t} else if (dfn[v] < dfn[u] && v != fa) {",
+			"\t\tlow[u] = min(low[u], dfn[v]);",
+			"\t\t}",
+			"\t}",
+			"}",
+			"",
+			"void solve() {",
+			"\tmemset(h, -1, sizeof h);",
+			"\tcin >> n >> m;",
+			"\tfor (int i = 1;i <= m;i ++) {",
+			"\t\tint a, b;",
+			"\t\tcin >> a >> b;",
+			"\t\tadd(a, b);",
+			"\t}",
+			"\tfor (int i = 1;i <= n;i ++) {",
+			"\t\tif (!dfn[i]) tarjan(i, i);",
+			"\t}",
+			"",
+			"\tfor (PII i : res) {// 输出割边",
+			"\t\tcout << i.first << \" \" << i.second << endl;",
+			"\t}",
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
@@ -1087,11 +1374,11 @@
 			"int h[N], e[N], ne[N], idx;//邻接表存图",
 			"int n, m;",
 			"",
-			"inline void add (int a, int b) {",
+			"inline void add(int a, int b) {",
 			"\te[idx] = b, ne[idx] = h[a], h[a] = idx++;",
 			"}",
 			"",
-			"void tarjan (int u) {",
+			"void tarjan(int u) {",
 			"\tdfn[u] = low[u] = ++dindex;//初始都为时间戳",
 			"\tinstack[u] = true;//加入栈内",
 			"\tsta[++stop] = u;",
@@ -1114,29 +1401,275 @@
 			"\t}",
 			"}",
 			"",
-			"void solve () {",
+			"void solve() {",
 			"\tmemset (h, -1, sizeof h);",
 			"\tmemset (dfn, 0, sizeof dfn);",
 			"\tstop = bcnt = dindex = 0;",
 			"",
-			"\tn = read(), m = read();",
+			"\tcin >> n >> m;",
 			"\tfor (int i = 1;i <= m;i ++) {",
-			"\t\tint a =read(), b = read();",
+			"\t\tint a, b;cin >> a >> b;",
 			"\t\tadd(a, b);",
 			"\t}",
 			"",
 			"\tfor (int i = 1;i <= n;i ++) {",
 			"\t\tif(!dfn[i]) tarjan(i);",
 			"\t}",
-			"}"
+			"}",
+			"$0"
 		],
 		"description": "Log output to console"
 	},
-	// "": {
-	// 	"prefix": "log",
-	// 	"body": [],
-	// 	"description": "Log output to console"
-	// },
+	//快读快写
+	"快读快写": {
+		"prefix": "ll read",
+		"body": [
+			"inline ll read(void) {",
+			"\tregister ll x = 0;",
+			"\tregister short sgn = 1;",
+			"\tregister char c = getchar();",
+			"\twhile (c < 48 || 57 < c)",
+			"\t{",
+			"\t\tif (c == 45)",
+			"\t\t\tsgn = 0;",
+			"\t\tc = getchar();",
+			"\t}",
+			"\twhile (47 < c && c < 58)",
+			"\t{",
+			"\t\tx = (x << 3) + (x << 1) + c - 48;",
+			"\t\tc = getchar();",
+			"\t}",
+			"\treturn sgn ? x : -x;",
+			"}",
+			"",
+			"inline void write(ll x) {",
+			"\tif (x < 0)",
+			"\t\tputchar('-'), x = -x;",
+			"\tif (x > 9)",
+			"\t\twrite(x / 10);",
+			"\tputchar(x % 10 + '0');",
+			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//玄学算法
+	"模拟退火": {
+		"prefix": "simulate",
+		"body": [
+			"const double eps = 1e-18;",
+			"const double delta = 0.999;",
+			"int ans = INT_MAX;",
+			"double calc()",
+			"{",
+			"\t// TODO: 计算当前方案的值",
+			"",
+			"\tans = min(ans, res);  // 更新全局答案",
+			"\treturn res;",
+			"}",
+			"",
+			"void simulate_anneal()  // 模拟退火",
+			"{",
+			"\tfor (double t = 1e6; t > eps; t *= delta)  // 逐渐降温",
+			"\t{",
+			"\t\tdouble x = calc();  // 原方案的值",
+			"\t\t// TODO: 随机一个新方案",
+			"\t\tdouble y = calc();  // 新方案的值",
+			"\t\tdouble de = y - x;",
+			"",
+			"\t\t// 新方案更好，则必选新方案；否则以一定概率选新方案 ",
+			"\t\tif (exp(-de / t) > (double)rand() / RAND_MAX)// 一定概率",
+			"\t\t{",
+			"\t\t\t// TODO: 换成新方案",
+			"\t\t}",
+			"\t}",
+			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	// 4方向偏移量
+	"4方向偏移量": {
+		"prefix": "int dx",
+		"body": [
+			"int dx[] = {-1, 0, 1, 0}, dy[] = {0, -1, 0, 1};// 上左下右",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//8方向偏移量
+	"8方向偏移量": {
+		"prefix": "int dx",
+		"body": [
+			"int dx[] = {-1, -1, 0, 1, 1, 1, 0, -1}, dy[] = {0, -1, -1, -1, 0, 1, 1, 1};// 从上为起始逆时针旋转",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//12方向偏移量
+	"12方向偏移量": {
+		"prefix": "int dx",
+		"body": [
+			"int dx[] = {-1, -1, 0, 1, 1, 1, 0, -1, -2, 0, 2, 0}, dy[] = {0, -1, -1, -1, 0, 1, 1, 1, 0, -2, 0, 2};// 从上方逆时针后上下左右",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//弗洛伊德求最小环
+	"弗洛伊德求最小环": {
+		"prefix": "floyd",
+		"body": [
+			"int pos[N][N];  // pos存的是中间点k",
+			"int path[N], cnt;  // path 当前最小环的方案, cnt环里面的点的数量",
+			"",
+			"// 递归处理环上节点",
+			"void get_path(int i, int j) {",
+			"\tif (pos[i][j] == 0) return;  // i到j的最短路没有经过其他节点",
+			"",
+			"\tint k = pos[i][j];  // 否则,i ~ k ~ j的话,递归处理 i ~ k的部分和k ~ j的部分",
+			"\tget_path(i, k);",
+			"\tpath[cnt ++] = k;  // k点放进去",
+			"\tget_path(k, j);",
+			"}",
+			"",
+			"void floyd() {// 弗洛伊德求最小环",
+			"\tint res = 0x7f7f7f7f;",
+			"",
+			"\tfor (int k = 1; k <= n; k++) {",
+			"\t\tfor (int i = 1; i < k; i++) {",
+			"\t\t\tfor (int j = 1; j < i; j++) {",
+			"\t\t\t\tif (res > dist[i][j] + d[i][k] + d[k][j]) {",
+			"\t\t\t\t\tres = dist[i][j] + d[i][k] + d[k][j];",
+			"\t\t\t\t\tcnt = 0;",
+			"\t\t\t\t\tpath[cnt ++] = k;  // 先把k放进去",
+			"\t\t\t\t\tpath[cnt ++] = i;  // 从k走到i(k固定的)",
+			"\t\t\t\t\tget_path(i ,j);  // 递归求i到j的路径",
+			"\t\t\t\t\tpath[cnt ++] = j;  // j到k, k固定",
+			"\t\t\t\t}",
+			"\t\t\t}",
+			"\t\t}",
+			"",
+			"\t\tfor (int i = 1; i <= n; i++) {",
+			"\t\t\tfor (int j = 1; j <= n; j++) {",
+			"\t\t\t\tif (dist[i][j] > dist[i][k] + dist[k][j]) {",
+			"\t\t\t\t\tdist[i][j] = dist[i][k] + dist[k][j];  ",
+			"\t\t\t\t\tpos[i][j] = k;",
+			"\t\t\t\t}",
+			"\t\t\t}",
+			"\t\t}",
+			"\t}",
+			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	"kmp求最字符出现位置": {
+		"prefix": "kmp",
+		"body": [
+			"int lenb = b.length()",
+			"int lena = a.length()",
+			"",
+			"for (int i = 2, j = 0; i <= lenb; i++)",
+			"{",
+			"\twhile (j && b[i] != b[j + 1]) j = ne[j];",
+			"\tif (b[i] == b[j + 1]) j++;",
+			"\tne[i] = j;",
+			"}",
+			"for (int i = 1, j = 0; i <= lena; i++)",
+			"{",
+			"\twhile (j && a[i] != b[j + 1]) j = ne[j];",
+			"\tif (a[i] == b[j + 1]) j++;",
+			"\tif (j == lenb)",
+			"\t{",
+			"\t\tcout << i - lenb + 1 << endl;// 如果可以完全匹配，输出第一个字符的位置",
+			"\t\tj = ne[j];",
+			"\t}",
+			"}",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	//--------------------------------------------
+	//inv线性求逆元
+	"inv线性求逆元": {
+		"prefix": "inv",
+		"body": [
+			"inv[1] = 1;",
+			"for(int i = 2;i <= n;i ++)",
+			"\tinv[i] = (p - p / i) * inv[p % i] % p;",
+		],
+		"description": "Log output to console"
+	},
+	//splay树
+	"splay树": {
+		"prefix": "splay",
+		"body": [
+			"struct Node {",
+			"\tint s[2], p, v;// 两个儿子、父亲、编号",
+			"\tint size;// 节点个数",
+			"\t// TODO: 节点额外属性",
+			"\t$0",
+			"\tvoid init(int _v, int _p) {",
+			"\t\tv = _v, p = _p;",
+			"\t\tsize = 1;",
+			"\t}",
+			"}tr[N];",
+			"int root, idx;// 根节点、插入时的新编号",
+			"",
+			"void pushup(int x) {",
+			"\ttr[x].size = tr[tr[x].s[0]].size + tr[tr[x].s[1]].size + 1;// 更新子树节点数",
+			"\t// TODO: 节点信息上传操作",
+			"}",
+			"",
+			"void pushdown(int x) {",
+			"\t// TODO:节点信息下传操作",
+			"}",
+			"",
+			"void rotate(int x) {",
+			"\tint y = tr[x].p, z = tr[y].p;// y是x的父亲，z是y的父亲",
+			"\tint k = tr[y].s[1] == x;// 如果k为0表示x是y的左儿子，如果k为1表示x是y的右儿子",
+			"\ttr[z].s[tr[z].s[1] == y] = x, tr[x].p = z;// z的儿子等于x，x的父亲等于z",
+			"\ttr[y].s[k] = tr[x].s[k ^ 1], tr[tr[x].s[k ^ 1]].p = y;// y的另一个儿子，等于x的一个儿子",
+			"\ttr[x].s[k ^ 1] = y, tr[y].p = x;// x的一个儿子给了y，那么y就成为x的儿子",
+			"\tpushup(y), pushup(x);// x、y的子树信息发生改变，又由于y在x下面，所以先维护y、然后维护x",
+			"}",
+			"",
+			"void splay(int x, int k) {// 把x翻转到k下面，k == 0表示翻转到根",
+			"\twhile (tr[x].p != k) {// 如果还没翻转到就继续翻",
+			"\t\tint y = tr[x].p, z = tr[y].p;",
+			"\t\tif (z != k) {// 如果z不等于k，说明x还要持续往上翻",
+			"\t\t\tif ((tr[y].s[1] == x) ^ (tr[z].s[1] == y)) rotate(x);// 如果x和y不是一条链的关系，就先翻x",
+			"\t\t\telse rotate(y);// 如果是一条链，就先翻y",
+			"\t\t}",
+			"\t\trotate(x);// 最后翻一下x",
+			"\t}",
+			"\tif (!k) root = x;",
+			"}",
+			"",
+			"// 序号左小右大",
+			"void insert(int v) {",
+			"\tint u = root, p = 0;",
+			"\twhile (u) p = u, u = tr[u].s[v > tr[u].v];// 如果v > tr[u].v就往右子树递归",
+			"\tu = ++idx;// 找到v应该放的地方，给他一个新的编号",
+			"\tif (p) tr[p].s[v > tr[p].v] = u;// 如果有父亲节点，就更新",
+			"\ttr[u].init(v, p);// 更新这个节点的信息",
+			"\tsplay(u, 0);// 旋转到根",
+			"}",
+			"",
+			"// 寻找第k个数的编号",
+			"int get_k(int k) {",
+			"\tint u = root;",
+			"\twhile (true) {",
+			"\t\tpushdown(u);",
+			"\t\tif (tr[tr[u].s[0]].size >= k) u = tr[u].s[0];",
+			"\t\telse if (tr[tr[u].s[0]].size + 1 == k) return u;",
+			"\t\telse k -= tr[tr[u].s[0]].size + 1, u = tr[u].s[1];",
+			"\t}",
+			"\treturn -1;// 如果没找到",
+			"}",
+		],
+		"description": "Log output to console"
+	},
 	// "": {
 	// 	"prefix": "log",
 	// 	"body": [],
