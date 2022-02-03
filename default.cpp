@@ -63,7 +63,9 @@ void solve(int group_Id) {
 signed main()
 {
     // IOS;
+#ifndef ONLINE_JUDGE
     FREOPEN;
+#endif
     // int T;read(T);
     int T = 1;
     for (int i = 1;i <= T;i ++) solve(i);
