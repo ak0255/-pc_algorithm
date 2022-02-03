@@ -63,7 +63,7 @@ void solve(int group_Id) {
 signed main()
 {
     // IOS;
-#ifndef ONLINE_JUDGE
+#ifdef LOCAL
     FREOPEN;
 #endif
     // int T;read(T);
