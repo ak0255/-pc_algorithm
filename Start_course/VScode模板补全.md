@@ -168,7 +168,7 @@
 			"signed main()",
 			"{",
 			"\t// IOS;",
-			"#ifdef LOCAL",
+			"#ifdef A_king",
 			"\tFREOPEN;",
 			"#endif",
 			"\t// int T;read(T);",
