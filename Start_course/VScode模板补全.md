@@ -168,7 +168,7 @@
 			"signed main()",
 			"{",
 			"\t// IOS;",
-			"#ifndef ONLINE_JUDGE",
+			"#ifdef LOCAL",
 			"\tFREOPEN;",
 			"#endif",
 			"\t// int T;read(T);",
