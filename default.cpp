@@ -26,6 +26,8 @@ namespace Template {
     typedef vector<ll> VL;
     typedef vector<VL> VVL;
     typedef vector<PII> VP;
+    typedef vector<string> VS;
+    typedef vector<VS> VVS;
     template<typename T> inline T Max(T &a, T b){if (a < b) a = b;return a;}
     template<typename T> inline T Max(T &a, T b, T c){a = Max(a, b);a = Max(a, c);return a;}
     template<typename T> inline T Min(T &a, T b){if (a > b) a = b;return a;}
