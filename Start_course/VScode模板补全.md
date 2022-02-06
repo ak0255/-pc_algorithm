@@ -131,6 +131,8 @@
 			"\ttypedef pair<int, PII> PIII;",
 			"\ttypedef vector<int> VI;",
 			"\ttypedef vector<ll> VL;",
+			"\ttypedef vector<string> VS;",
+    			"\ttypedef vector<VS> VVS;",
 			"\ttemplate<typename T> inline T Max(T &a, T b){if (a < b) a = b;return a;}",
 			"\ttemplate<typename T> inline T Max(T &a, T b, T c){a = Max(a, b);a = Max(a, c);return a;}",
 			"\ttemplate<typename T> inline T Min(T &a, T b){if (a > b) a = b;return a;}",
