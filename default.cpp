@@ -1,24 +1,18 @@
-#include <iostream>
-#include <cstring>
-#include <algorithm>
-#include <cmath>
-#include <numeric>
-#include <stack>
-#include <vector>
-#include <queue>
-#include <set>
-#include <map>
-#include <unordered_map>
-#include <unordered_set>
-#include <bitset>
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define inf 0x3f3f3f3f
-#define IOS ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
-#define FREOPEN freopen("in.in", "r", stdin);freopen("out.out", "w", stdout)
-#define endl '\n'
 namespace Template {
+    #define inf 0x3f3f3f3f
+    #define IOS ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+    #define FREOPEN freopen("in.in", "r", stdin);freopen("out.out", "w", stdout)
+    #define endl '\n'
+    #define pb push_back
+    #define pf push_front
+    #define len(x) (int)(x).size()
+    #define all(x) (x).begin(), (x).end()
+    const double PI = acos(-1);
+    const double eps = 1e-6;
     typedef long long ll;
+    typedef pair<double, double> PDD;
     typedef pair<int, int> PII;
     typedef pair<int, PII> PIII;
     typedef vector<int> VI;
@@ -54,25 +48,34 @@ namespace Template {
 }
 using namespace Template;
 
+// __builtin_popcount(x); 返回x中1的个数
+// accumulate(begin(), end(), start_val); 数组求和
+// min_element(begin(), end()); 最小元素的迭代器
+// max_element(begin(), end()); 最大元素的迭代器
+// minmax_element(begin(), end()); PII类型返回两个迭代器
+// nth_element(begin(), begin() + k_th, end(), less<int>()); //下标从begin()开始，默认寻找第k小的数
+// priority_queue<type, vector<type>, greater<type>> q; 大根堆，重载大于号
+// map<key, value> key -> PII √, unordered_map可能导致二次时间复杂度
+clock_t CLOCK = clock();
 const int N = 1e6 + 10, M = 2e6 + 10, mod = 1e9 + 7;
 
 
 
 void solve(int group_Id) {
-    int a, b;
-    read(a, b);
-    cout << a + b << endl;
+    
 }
 
 signed main()
 {
-    // IOS;
 #ifdef A_king
     FREOPEN;
 #endif
     // int T;read(T);
     int T = 1;
     for (int i = 1;i <= T;i ++) solve(i);
+#ifdef A_king
+    cerr << "Run Time: " << (double)(clock() - CLOCK) / CLOCKS_PER_SEC * 1000 << " ms" << endl;
+#endif
     return 0;
 }
 /**
