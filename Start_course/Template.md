@@ -205,8 +205,6 @@ vector<int> add(vector<int> &A, vector<int> &B)  // C = A + B, A >= 0, B >= 0
 {
     if (A.size() < B.size()) return add(B, A);
 
-    reverse(A.begin(), A.end());
-    reverse(B.begin(), B.end());
     vector<int> C;
     int t = 0;
     for (int i = 0; i < A.size(); i ++ )
@@ -218,10 +216,8 @@ vector<int> add(vector<int> &A, vector<int> &B)  // C = A + B, A >= 0, B >= 0
     }
 
     if (t) C.push_back(t);
-    reverse(C.begin(), C.end());
     return C;
 }
-
 ```
 
 # sub - 高精度减法
@@ -230,8 +226,6 @@ vector<int> add(vector<int> &A, vector<int> &B)  // C = A + B, A >= 0, B >= 0
 vector<int> sub(vector<int> &A, vector<int> &B)  // C = A - B, 满足A >= B, A >= 0, B >= 0
 {
     vector<int> C;
-    reverse(A.begin(), A.end());
-    reverse(B.begin(), B.end());
     for (int i = 0, t = 0; i < A.size(); i ++ )
     {
         t = A[i] - t;
@@ -242,10 +236,8 @@ vector<int> sub(vector<int> &A, vector<int> &B)  // C = A - B, 满足A >= B, A >
     }
 
     while (C.size() > 1 && C.back() == 0) C.pop_back();
-    reverse(C.begin(), C.end());
     return C;
 }
-
 ```
 
 
@@ -256,7 +248,6 @@ vector<int> sub(vector<int> &A, vector<int> &B)  // C = A - B, 满足A >= B, A >
 vector<int> mul(vector<int> &A, int b)  // C = A * b, A >= 0, b >= 0
 {
     vector<int> C;
-    reverse(A.begin(), A.end());
 
     int t = 0;
     for (int i = 0; i < A.size() || t; i ++ )
@@ -268,7 +259,6 @@ vector<int> mul(vector<int> &A, int b)  // C = A * b, A >= 0, b >= 0
 
     while (C.size() > 1 && C.back() == 0) C.pop_back();
 
-    reverse(C.begin(), C.end());
     return C;
 }
 
@@ -281,7 +271,6 @@ vector<int> mul(vector<int> &A, int b)  // C = A * b, A >= 0, b >= 0
 ```cpp
 vector<int> div(vector<int> &A, int b, int &r)  // A / b = C ... r, A >= 0, b > 0
 {
-    reverse(A.begin(), A.end());
     vector<int> C;
     r = 0;
     for (int i = A.size() - 1; i >= 0; i -- )
@@ -292,7 +281,6 @@ vector<int> div(vector<int> &A, int b, int &r)  // A / b = C ... r, A >= 0, b > 
     }
     reverse(C.begin(), C.end());
     while (C.size() > 1 && C.back() == 0) C.pop_back();
-    reverse(C.begin(), C.end());
     return C;
 }
 ```
