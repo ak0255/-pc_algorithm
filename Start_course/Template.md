@@ -195,7 +195,10 @@ int exgcd(int a, int b, int &x, int &y)  // 扩展欧几里得算法, 求x, y，
     y -= (a / b) * x;
     return d;
 }
-
+// 如果是求逆元
+if (exgcd(a, p, x, y) != 1) // 无解的情形
+ 	return -1;
+return (x % p + p) % p;
 ```
 
 # add - 高精度加法
@@ -288,61 +291,46 @@ vector<int> div(vector<int> &A, int b, int &r)  // A / b = C ... r, A >= 0, b > 
 # 欧拉筛质数
 
 ```cpp
-int st[N], primes[N], cnt;
-void ola(int n)
-{
-    for (int i = 2; i <= n; i++)
-    {
-        if (st[i] == 0)
-            primes[cnt++] = i;                   //将质数存到primes中
-        for (int j = 0; primes[j] * i <= n; j++) //要确保质数的第i倍是小于等于n的。
-        {
-            st[primes[j] * i] = 1;
-            if (i % primes[j] == 0)
-                break;
+bool st[N];VI primes;
+void ola(int n = 1e5 + 10) {
+    for (int i = 2;i <= n;i ++) {
+        if (!st[i]) primes.pb(i);
+        for (auto p : primes) {
+            if (p * i > n) break;
+            st[p * i] = true;
+            if (i % p == 0) break;
         }
     }
 }
 ```
 
-# spfa判断是否有环
+# Miller筛
+
+>   费马小定理拓展出来，可以在$O(klog_2^n)$的时间复杂度下求出n是否为素数，其中$k = 7$有$Args$数组里面7个常数决定迭代次数，次算法保证在2^64^整数内保证正确
 
 ```cpp
-bool spfa() {
-// 如果存在负环，则返回true，否则返回false。
-// 不需要初始化dist数组
-// 原理：如果某条最短路径上有n个点（除了自己），那么加上自己之后一共有n+1个点，
-// 由抽屉原理一定有两个点相同，所以存在环。
-    int hh = 0, tt = 0;
-
-    for (int i = 1; i <= n; i ++ ) q[tt ++ ] = i, st[i] = true, dist[i] = cnt[i] = 0;
-
-    while (hh != tt)
+struct Miller {
+    VI Args = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+    ll Quick_pow(ll a, ll b, ll mod) {ll res = 1;a %= mod;while (b) {if (b & 1) res = res * a % mod;b >>= 1;a = a * a % mod;}return res;}
+    bool isprime(ll x)
     {
-        int t = q[hh ++ ];
-        if (hh == N) hh = 0;
-        st[t] = false;
-
-        for (int i =  h[t]; ~i; i = ne[i])
-        {
-            int j = e[i];
-            if (dist[j] > dist[t] + w[i])
-            {
-                dist[j] = dist[t]  + w[i];
-                cnt[j] = cnt[t] + 1;
-                if (cnt[j] >= n) return true;
-                if (!st[j])
-                {
-                    st[j] = true;
-                    q[tt ++ ] = j;
-                    if (tt == N) tt = 0;
-                }
+        if (x < 3) return x == 2;
+        if (x % 2 == 0) return false;
+        ll p = x - 1, r = 0;
+        while (p % 2 == 0) ++ r, p >>= 1;
+        for (int args : Args) {
+            ll v = Quick_pow(args, p, x);
+            if (v <= 1 || v == x - 1) continue;
+            for (int i = 1; i <= r; i++) {
+                v = v * v % x;
+                if (v == x - 1 && i != r) {v = 1;break;}
+                if (v == 1) return false;
             }
+            if (v != 1) return false;
         }
+        return true;
     }
-
-    return false;
-}
+};
 ```
 
 
@@ -494,9 +482,33 @@ for (int i = 1, j = 0; i <= lena; i++)
 
 ```cpp
 inv[1] = 1;
-for(int i = 2;i <= n;i ++)
-    inv[i] = (p - p / i) * inv[p % i] % p;
+for(int i = 2;i <= n;i ++) inv[i] = (p - p / i) * inv[p % i] % p;
+// 递归版
+ll inv[N] = {0, 1};
+inline ll mod(ll a, ll p) {return (a % p + p) % p;}
+ll INV(ll a, ll p) {
+    if (inv[a]) return Inv[a];
+    inv[a] = mod(-p / a * INV(p % a, p), p);
+    return inv[a];
+}
 ```
+
+# 中国剩余定理
+
+```cpp
+inline ll CRT(ll a[], ll b[], ll n)  // a是模数数组，b是余数数组，n是数组长度
+{
+    ll p = 1, x = 0;
+    for (int i = 0; i < n; ++i) p *= a[i];
+    for (int i = 0; i < n; ++i) {
+        ll r = p / a[i];
+        x += (b[i] * r * inv(r, a[i])) % p;
+    }
+    return x % p;
+}
+```
+
+
 
 # 可持久化求最大异或
 
@@ -624,6 +636,8 @@ int lca(int x, int y) {
 
 # 树上启发式合并
 
+>   针对树上每个节点子树贡献的计算，时间复杂度较优，~~至少吊打树上莫队~~
+
 ```cpp
 int h[N], e[M], ne[M], idx;
 int sz[N], big[N], L[N], R[N], Node[N], res[N], totdfn;
@@ -706,7 +720,9 @@ void dfs(int u, int fa, bool keep) {
 
 
 
-# $[1-n]$​字典序第k小的数
+# $[1-n]$​​字典序第k小的数
+
+>   字典树原理实现
 
 ```cpp
 void solve(int group_Id) {
@@ -786,12 +802,21 @@ namespace Template {
     template<typename T> inline T Abs(T a){if (a < 0) a = -1 * a;return a;}
     template<typename T>T Gcd(T a, T b){return b ? Gcd(b, a % b) : a;}
     template<typename T> inline void Swap(T &a, T &b){a ^= b ^= a ^= b;}
-    template<typename T> inline void read(T &x) {x = 0;short sgn = 1;char c = getchar();while (c < 48 || 57 < c) {if (c == 45) sgn = -1;c = getchar();}while (48 <= c && c <= 57) {x = (x << 3) + (x << 1) + c - 48;c = getchar();}x *= sgn;}
-    template<typename T, typename... Args> void read(T &first, Args& ... args) {read(first);read(args...);}
-    inline ll read() {ll x = 0;short sgn = 1;char c = getchar();while (c < 48 || 57 < c) {if (c == 45) sgn = -1;c = getchar();}while (48 <= c && c <= 57) {x = (x << 3) + (x << 1) + c - 48;c = getchar();}x *= sgn;return x;}
     template<typename ...U>void Println(U... u) {int last_index = sizeof...(U) - 1, index = 0;auto printer = [last_index, &index]<typename Args>(Args args){if (last_index == index++) cout << args << endl;else cout << args << ", ";};(printer(u), ...);}
 }
+namespace FastIO {
+    char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf;int p, p3 = -1;
+    inline int getc() {return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 21, stdin), p1 == p2) ? EOF : *p1++;}
+    inline void flush() {fwrite(buf2, 1, p3 + 1, stdout), p3 = -1;}
+    inline void read() {}
+    template <class T, typename enable_if<is_signed_v<T>>::type* = nullptr>inline void read(T& x) {int f = x = 0;char ch = getc();while (!isdigit(ch)) {if (ch == '-') f = 1;ch = getc();}while (isdigit(ch)) { x = x * 10 + ch - '0', ch = getc(); }if (f) x = -x;}
+    template <class T, typename enable_if<is_unsigned_v<T>>::type* = nullptr>inline void read(T& x) {x = 0;char ch = getc();while (!isdigit(ch)) ch = getc();while (isdigit(ch)) { x = x * 10 + ch - '0', ch = getc(); }}
+    inline void read(char* str) {char ch = getc(), *now = str;while (!isprint(ch)) ch = getc();while (isprint(ch)) { *(now ++) = ch, ch = getc(); }*(now ++) = '\0';}
+    inline void read(string& str) {char ch = getc();while (!isprint(ch)) ch = getc();while (isprint(ch)) { str.push_back(ch), ch = getc(); }}
+    template <typename T, typename... Args, typename enable_if<is_signed_v<T> || is_unsigned_v<T> || is_same_v<T, char*> || is_same_v<T, string&>>::type* = nullptr>inline void read(T& first, Args&... args) {read(first);read(args...);}
+}
 using namespace Template;
+using FastIO::read;
 
 
 
